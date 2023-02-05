@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Define your beans here -->
+        <!-- 
+    	Add a logger config to see logging messages.		
+    	- For more detailed logs, set values to "FINEST"
+    	- For info on logging levels, see: http://www.vogella.com/tutorials/Logging/article.html
+     -->
+        <!-- <bean id="myLoggerConfig" class="com.shankar.springdemo.MyLoggerConfig" init-method="initLogger">
+        	<property name="rootLoggerLevel" value="FINE" />
+        	<property name="printedLoggerLevel" value="FINE"/>
+        </bean> -->
+        
+        <context:property-placeholder location="classpath:app.properties"/>
+        
+    <bean id="myCoach"
+    	class="com.shankar.demoOne.TrackCoach"
+    	init-method="doStartMethod"
+    	destroy-method="doStopMethod">
+    	<constructor-arg ref="fortuneService"/>
+    </bean>
+    
+       <bean id="fortuneService"
+    	class="com.shankar.demoOne.HappyFortuneService">
+    </bean>
+    
+     <bean id="baseballCoach"
+    	class="com.shankar.demoOne.BaseballCoach"
+    	init-method="doStartMethod"
+    	destroy-method="doStopMethod">
+    	<constructor-arg ref="fortuneService"/>
+    </bean>
+    
+    <bean id="cricketCoach"
+    	class="com.shankar.demoOne.CricketCoach"
+    	init-method="doStartMethod"
+    	destroy-method="doStopMethod">
+    	<constructor-arg ref="fortuneService"/>
+    	<property name="teamName" value="SRH1"/>
+    	<property name="teamEmail" value="${team.email}"/>
+    </bean>
+    
+    <bean id="tennisCoach"
+    	class="com.shankar.demoOne.TennisCoach"
+    	init-method="doStartMethod"
+    	destroy-method="doStopMethod">
+    	<property name="fortuneService2" ref="fortuneService"></property>
+    </bean>
+</beans>
+
+
+
+
+
